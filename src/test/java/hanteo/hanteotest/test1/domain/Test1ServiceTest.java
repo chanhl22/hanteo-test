@@ -23,7 +23,7 @@ class Test1ServiceTest {
         String text = test1Service.find(categoryIndex, categoryName);
 
         //then
-        assertThat(text).isEqualTo("{\"gender\":\"남자\",\"groups\":[{\"id\":1,\"groupName\":\"엑소\",\"boards\":[{\"id\":1,\"boardName\":\"공지사항\"},{\"id\":2,\"boardName\":\"첸\"},{\"id\":3,\"boardName\":\"백현\"},{\"id\":4,\"boardName\":\"시우민\"}]},{\"id\":2,\"groupName\":\"방탄소년단\",\"boards\":[{\"id\":5,\"boardName\":\"공지사항\"},{\"id\":6,\"boardName\":\"익명게시판\"},{\"id\":7,\"boardName\":\"뷔\"}]}]}");
+        assertThat(text).isEqualTo("{\"code\":200,\"status\":\"OK\",\"message\":\"OK\",\"data\":{\"gender\":\"남자\",\"groups\":[{\"id\":1,\"groupName\":\"엑소\",\"boards\":[{\"id\":1,\"boardName\":\"공지사항\"},{\"id\":2,\"boardName\":\"첸\"},{\"id\":3,\"boardName\":\"백현\"},{\"id\":4,\"boardName\":\"시우민\"}]},{\"id\":2,\"groupName\":\"방탄소년단\",\"boards\":[{\"id\":5,\"boardName\":\"공지사항\"},{\"id\":6,\"boardName\":\"익명게시판\"},{\"id\":7,\"boardName\":\"뷔\"}]}]}}");
     }
 
     @DisplayName("그룹으로 게시판을 검색해서 찾은 결과를 JSON 텍스트로 조회한다.")
@@ -40,7 +40,7 @@ class Test1ServiceTest {
         String text = test1Service.find(categoryIndex, categoryName);
 
         //then
-        assertThat(text).isEqualTo("{\"id\":1,\"groupName\":\"엑소\",\"boards\":[{\"id\":1,\"boardName\":\"공지사항\"},{\"id\":2,\"boardName\":\"첸\"},{\"id\":3,\"boardName\":\"백현\"},{\"id\":4,\"boardName\":\"시우민\"}]}");
+        assertThat(text).isEqualTo("{\"code\":200,\"status\":\"OK\",\"message\":\"OK\",\"data\":{\"id\":1,\"groupName\":\"엑소\",\"boards\":[{\"id\":1,\"boardName\":\"공지사항\"},{\"id\":2,\"boardName\":\"첸\"},{\"id\":3,\"boardName\":\"백현\"},{\"id\":4,\"boardName\":\"시우민\"}]}}");
     }
 
     @DisplayName("게시판을 검색해서 찾은 결과를 JSON 텍스트로 조회한다.")
@@ -57,7 +57,7 @@ class Test1ServiceTest {
         String text = test1Service.find(categoryIndex, categoryName);
 
         //then
-        assertThat(text).isEqualTo("[{\"id\":2,\"boardName\":\"첸\"}]");
+        assertThat(text).isEqualTo("{\"code\":200,\"status\":\"OK\",\"message\":\"OK\",\"data\":[{\"id\":2,\"boardName\":\"첸\"}]}");
     }
 
     @DisplayName("올바른 카테고리 식별자가 아닌 경우 예외가 발생한다.")
@@ -76,7 +76,7 @@ class Test1ServiceTest {
                 .hasMessage("[ERROR] 입력한 검색어를 다시 확인해주세요.");
     }
 
-    @DisplayName("해당되는 그룹이 없는 경우 null 값을 넣어서 반환한다.")
+    @DisplayName("해당되는 그룹이 없는 경우 빈 값을 반환한다.")
     @Test
     void noGroup() {
         //given
@@ -90,7 +90,7 @@ class Test1ServiceTest {
         String text = test1Service.find(categoryIndex, categoryName);
 
         //then
-        assertThat(text).isEqualTo("{\"id\":0,\"groupName\":null,\"boards\":null}");
+        assertThat(text).isEqualTo("{\"code\":200,\"status\":\"OK\",\"message\":\"OK\",\"data\":{}}");
     }
 
     @DisplayName("해당되는 게시판이 없는 경우 빈 리스트를 반환한다.")
@@ -107,7 +107,7 @@ class Test1ServiceTest {
         String text = test1Service.find(categoryIndex, categoryName);
 
         //then
-        assertThat(text).isEqualTo("[]");
+        assertThat(text).isEqualTo("{\"code\":200,\"status\":\"OK\",\"message\":\"OK\",\"data\":[]}");
     }
 
 }

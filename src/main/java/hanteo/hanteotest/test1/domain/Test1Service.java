@@ -1,5 +1,6 @@
 package hanteo.hanteotest.test1.domain;
 
+import hanteo.hanteotest.test1.domain.dto.ApiResponse;
 import hanteo.hanteotest.test1.domain.dto.BoardDto;
 import hanteo.hanteotest.test1.domain.dto.GenderDto;
 import hanteo.hanteotest.test1.domain.dto.GroupDto;
@@ -53,7 +54,7 @@ public class Test1Service {
 
         Gender gender = convertTextToGender(categoryName);
         List<Group> searchGroups = genderMap.get(gender);
-        return JsonConverter.convertObjectToJsonString(GenderDto.of(gender, searchGroups));
+        return JsonConverter.convertObjectToJsonString(ApiResponse.ok(GenderDto.of(gender, searchGroups)));
     }
 
     private boolean isGroup(String categoryIndex) {
@@ -67,7 +68,7 @@ public class Test1Service {
                 .findFirst()
                 .orElseGet(GroupDto::empty);
 
-        return JsonConverter.convertObjectToJsonString(searchGroup);
+        return JsonConverter.convertObjectToJsonString(ApiResponse.ok(searchGroup));
     }
 
     private boolean isBoard(String categoryIndex) {
@@ -80,7 +81,7 @@ public class Test1Service {
                 .map(BoardDto::of)
                 .collect(Collectors.toList());
 
-        return JsonConverter.convertObjectToJsonString(searchBoards);
+        return JsonConverter.convertObjectToJsonString(ApiResponse.ok(searchBoards));
     }
 
 }

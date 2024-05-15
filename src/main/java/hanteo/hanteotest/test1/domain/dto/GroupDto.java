@@ -1,5 +1,6 @@
 package hanteo.hanteotest.test1.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import hanteo.hanteotest.test1.domain.Group;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,9 +11,13 @@ import java.util.stream.Collectors;
 @Getter
 public class GroupDto {
 
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     private final int id;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String groupName;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<BoardDto> boards;
 
     @Builder
