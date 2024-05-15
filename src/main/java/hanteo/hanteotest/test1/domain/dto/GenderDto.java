@@ -11,13 +11,13 @@ import java.util.stream.Collectors;
 @Getter
 public class GenderDto {
 
-    private final Gender gender;
+    private final String gender;
 
     private final List<GroupDto> groups;
 
     @Builder
     private GenderDto(Gender gender, List<GroupDto> groups) {
-        this.gender = gender;
+        this.gender = gender.getText();
         this.groups = groups;
     }
 

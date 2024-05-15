@@ -23,7 +23,7 @@ class Test1ServiceTest {
         String text = test1Service.find(categoryIndex, categoryName);
 
         //then
-        assertThat(text).isEqualTo("{\"gender\":\"MAN\",\"groups\":[{\"id\":1,\"groupName\":\"엑소\",\"boards\":[{\"id\":1,\"boardName\":\"공지사항\"},{\"id\":2,\"boardName\":\"첸\"},{\"id\":3,\"boardName\":\"백현\"},{\"id\":4,\"boardName\":\"시우민\"}]},{\"id\":2,\"groupName\":\"방탄소년단\",\"boards\":[{\"id\":5,\"boardName\":\"공지사항\"},{\"id\":6,\"boardName\":\"익명게시판\"},{\"id\":7,\"boardName\":\"뷔\"}]}]}");
+        assertThat(text).isEqualTo("{\"gender\":\"남자\",\"groups\":[{\"id\":1,\"groupName\":\"엑소\",\"boards\":[{\"id\":1,\"boardName\":\"공지사항\"},{\"id\":2,\"boardName\":\"첸\"},{\"id\":3,\"boardName\":\"백현\"},{\"id\":4,\"boardName\":\"시우민\"}]},{\"id\":2,\"groupName\":\"방탄소년단\",\"boards\":[{\"id\":5,\"boardName\":\"공지사항\"},{\"id\":6,\"boardName\":\"익명게시판\"},{\"id\":7,\"boardName\":\"뷔\"}]}]}");
     }
 
     @DisplayName("그룹으로 게시판을 검색해서 찾은 결과를 JSON 텍스트로 조회한다.")
