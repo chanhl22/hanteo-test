@@ -1,11 +1,10 @@
 package hanteo.hanteotest.test1.domain;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import hanteo.hanteotest.test1.domain.dto.BoardDto;
 import hanteo.hanteotest.test1.domain.dto.GenderDto;
 import hanteo.hanteotest.test1.domain.dto.GroupDto;
 import hanteo.hanteotest.test1.utils.DataGenerator;
+import hanteo.hanteotest.test1.utils.JsonConverter;
 
 import java.util.List;
 import java.util.Map;
@@ -30,31 +29,15 @@ public class Test1Service {
         List<Board> boards = data.getBoards();
 
         if (isGender(categoryIndex)) {
-            Map<Gender, List<Group>> genderMap = groups.stream()
-                    .collect(Collectors.groupingBy(Group::getGender));
-
-            Gender gender = convertTextToGender(categoryName);
-            List<Group> searchGroups = genderMap.get(gender);
-            return convertObjectToJsonString(GenderDto.of(gender, searchGroups));
+            return makeGenderResponse(categoryName, groups);
         }
 
         if (isGroup(categoryIndex)) {
-            GroupDto searchGroup = groups.stream()
-                    .filter(group -> group.getGroupName().equals(categoryName))
-                    .map(GroupDto::of)
-                    .findFirst()
-                    .orElseGet(GroupDto::empty);
-
-            return convertObjectToJsonString(searchGroup);
+            return makeGroupResponse(categoryName, groups);
         }
 
         if (isBoard(categoryIndex)) {
-            List<BoardDto> searchBoards = boards.stream()
-                    .filter(board -> board.getBoardName().equals(categoryName))
-                    .map(BoardDto::of)
-                    .collect(Collectors.toList());
-
-            return convertObjectToJsonString(searchBoards);
+            return makeBoardResponse(categoryName, boards);
         }
 
         throw new IllegalArgumentException("[ERROR] 입력한 검색어를 다시 확인해주세요.");
@@ -64,23 +47,40 @@ public class Test1Service {
         return GENDER.equals(categoryIndex);
     }
 
+    private String makeGenderResponse(String categoryName, List<Group> groups) {
+        Map<Gender, List<Group>> genderMap = groups.stream()
+                .collect(Collectors.groupingBy(Group::getGender));
+
+        Gender gender = convertTextToGender(categoryName);
+        List<Group> searchGroups = genderMap.get(gender);
+        return JsonConverter.convertObjectToJsonString(GenderDto.of(gender, searchGroups));
+    }
+
     private boolean isGroup(String categoryIndex) {
         return GROUP.equals(categoryIndex);
+    }
+
+    private String makeGroupResponse(String categoryName, List<Group> groups) {
+        GroupDto searchGroup = groups.stream()
+                .filter(group -> group.getGroupName().equals(categoryName))
+                .map(GroupDto::of)
+                .findFirst()
+                .orElseGet(GroupDto::empty);
+
+        return JsonConverter.convertObjectToJsonString(searchGroup);
     }
 
     private boolean isBoard(String categoryIndex) {
         return BOARD.equals(categoryIndex);
     }
 
-    private String convertObjectToJsonString(Object object) {
-        ObjectMapper mapper = new ObjectMapper();
-        String result = null;
-        try {
-            result = mapper.writeValueAsString(object);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return result;
+    private String makeBoardResponse(String categoryName, List<Board> boards) {
+        List<BoardDto> searchBoards = boards.stream()
+                .filter(board -> board.getBoardName().equals(categoryName))
+                .map(BoardDto::of)
+                .collect(Collectors.toList());
+
+        return JsonConverter.convertObjectToJsonString(searchBoards);
     }
 
 }
