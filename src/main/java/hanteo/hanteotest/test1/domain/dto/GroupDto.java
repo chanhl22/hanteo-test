@@ -31,4 +31,8 @@ public class GroupDto {
 
     }
 
+    public static GroupDto empty() {
+        return GroupDto.builder().build();
+    }
+
 }
