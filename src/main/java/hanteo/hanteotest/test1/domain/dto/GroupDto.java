@@ -10,18 +10,21 @@ import java.util.stream.Collectors;
 @Getter
 public class GroupDto {
 
+    private final int id;
     private final String groupName;
 
     private final List<BoardDto> boards;
 
     @Builder
-    private GroupDto(String groupName, List<BoardDto> boards) {
+    private GroupDto(int id, String groupName, List<BoardDto> boards) {
+        this.id = id;
         this.groupName = groupName;
         this.boards = boards;
     }
 
     public static GroupDto of(Group group) {
         return GroupDto.builder()
+                .id(group.getParentIdx())
                 .groupName(group.getGroupName())
                 .boards(group.getGroupBoards().stream()
                         .filter(groupBoard -> groupBoard.getGroup().getParentIdx() == group.getParentIdx())
