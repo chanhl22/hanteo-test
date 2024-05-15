@@ -3,20 +3,18 @@ package hanteo.hanteotest.test1.utils;
 import hanteo.hanteotest.test1.domain.Board;
 import hanteo.hanteotest.test1.domain.Group;
 import hanteo.hanteotest.test1.domain.GroupBoard;
-import lombok.Builder;
-import lombok.Getter;
 
 import java.util.List;
 
 import static hanteo.hanteotest.test1.domain.Gender.MAN;
 import static hanteo.hanteotest.test1.domain.Gender.WOMAN;
 
-@Getter
-public class DataGenerator {
+public class DataGenerator implements InputDataGenerator {
 
     private List<Group> groups;
     private List<Board> boards;
 
+    @Override
     public DataGenerator init() {
         Group exo = Group.create(1, "엑소", MAN);
         Group bts = Group.create(2, "방탄소년단", MAN);
@@ -61,6 +59,16 @@ public class DataGenerator {
         groups = List.of(exo, bts, blackpink);
         boards = List.of(board1, board2, board3, board4, board5, board6, board7, board8, board9);
         return this;
+    }
+
+    @Override
+    public List<Group> getGroups() {
+        return groups;
+    }
+
+    @Override
+    public List<Board> getBoards() {
+        return boards;
     }
 
 }

@@ -3,7 +3,7 @@ package hanteo.hanteotest.test1.domain;
 import hanteo.hanteotest.test1.domain.dto.BoardDto;
 import hanteo.hanteotest.test1.domain.dto.GenderDto;
 import hanteo.hanteotest.test1.domain.dto.GroupDto;
-import hanteo.hanteotest.test1.utils.DataGenerator;
+import hanteo.hanteotest.test1.utils.InputDataGenerator;
 import hanteo.hanteotest.test1.utils.JsonConverter;
 
 import java.util.List;
@@ -17,14 +17,14 @@ public class Test1Service {
     private static final String GENDER = "성별";
     private static final String GROUP = "그룹";
     private static final String BOARD = "게시판";
-    private final DataGenerator dataGenerator;
+    private final InputDataGenerator inputDataGenerator;
 
-    public Test1Service(DataGenerator dataGenerator) {
-        this.dataGenerator = dataGenerator;
+    public Test1Service(InputDataGenerator inputDataGenerator) {
+        this.inputDataGenerator = inputDataGenerator;
     }
 
     public String find(String categoryIndex, String categoryName) {
-        DataGenerator data = dataGenerator.init();
+        InputDataGenerator data = inputDataGenerator.init();
         List<Group> groups = data.getGroups();
         List<Board> boards = data.getBoards();
 
