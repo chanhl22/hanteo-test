@@ -39,12 +39,13 @@ public class Test1Service {
         }
 
         if (isGroup(categoryIndex)) {
-            List<GroupDto> searchGroups = groups.stream()
+            GroupDto searchGroup = groups.stream()
                     .filter(group -> group.getGroupName().equals(categoryName))
                     .map(GroupDto::of)
-                    .collect(Collectors.toList());
+                    .findFirst()
+                    .orElseGet(GroupDto::empty);
 
-            return convertObjectToJsonString(searchGroups);
+            return convertObjectToJsonString(searchGroup);
         }
 
         if (isBoard(categoryIndex)) {
