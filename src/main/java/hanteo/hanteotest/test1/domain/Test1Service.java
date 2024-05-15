@@ -3,7 +3,7 @@ package hanteo.hanteotest.test1.domain;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hanteo.hanteotest.test1.domain.dto.BoardDto;
-import hanteo.hanteotest.test1.domain.dto.GenderSearchDto;
+import hanteo.hanteotest.test1.domain.dto.GenderDto;
 import hanteo.hanteotest.test1.domain.dto.GroupDto;
 import hanteo.hanteotest.test1.utils.DataGenerator;
 
@@ -35,7 +35,7 @@ public class Test1Service {
 
             Gender gender = convertTextToGender(categoryName);
             List<Group> searchGroups = genderMap.get(gender);
-            return convertObjectToJsonString(GenderSearchDto.of(gender, searchGroups));
+            return convertObjectToJsonString(GenderDto.of(gender, searchGroups));
         }
 
         if (isGroup(categoryIndex)) {
