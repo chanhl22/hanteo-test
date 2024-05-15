@@ -3,7 +3,6 @@ package hanteo.hanteotest.test1.domain;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hanteo.hanteotest.test1.domain.dto.BoardDto;
-import hanteo.hanteotest.test1.domain.dto.EmptyDto;
 import hanteo.hanteotest.test1.domain.dto.GenderDto;
 import hanteo.hanteotest.test1.domain.dto.GroupDto;
 import hanteo.hanteotest.test1.utils.DataGenerator;
@@ -58,7 +57,7 @@ public class Test1Service {
             return convertObjectToJsonString(searchBoards);
         }
 
-        return convertObjectToJsonString(EmptyDto.of());
+        throw new IllegalArgumentException("[ERROR] 입력한 검색어를 다시 확인해주세요.");
     }
 
     private boolean isGender(String categoryIndex) {

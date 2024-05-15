@@ -18,7 +18,7 @@ public enum Gender {
         return Arrays.stream(Gender.values())
                 .filter(code -> code.getText().equals(text))
                 .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new IllegalArgumentException("[ERROR] 입력한 검색어를 다시 확인해주세요."));
     }
 
 }
