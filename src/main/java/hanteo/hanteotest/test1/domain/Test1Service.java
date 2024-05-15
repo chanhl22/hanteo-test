@@ -3,6 +3,7 @@ package hanteo.hanteotest.test1.domain;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hanteo.hanteotest.test1.domain.dto.BoardDto;
+import hanteo.hanteotest.test1.domain.dto.EmptyDto;
 import hanteo.hanteotest.test1.domain.dto.GenderDto;
 import hanteo.hanteotest.test1.domain.dto.GroupDto;
 import hanteo.hanteotest.test1.utils.DataGenerator;
@@ -57,7 +58,7 @@ public class Test1Service {
             return convertObjectToJsonString(searchBoards);
         }
 
-        return null;
+        return convertObjectToJsonString(EmptyDto.of());
     }
 
     private boolean isGender(String categoryIndex) {
@@ -72,7 +73,7 @@ public class Test1Service {
         return BOARD.equals(categoryIndex);
     }
 
-    public String convertObjectToJsonString(Object object) {
+    private String convertObjectToJsonString(Object object) {
         ObjectMapper mapper = new ObjectMapper();
         String result = null;
         try {
